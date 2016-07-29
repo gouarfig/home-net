@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
+import { SimpleChartExample } from './simple-chart-example.component';
+import { StockChartExample } from './stock-chart-example.component';
+
 @Component({
   selector: 'my-app',
-  template: '<h1>My First Angular 2 App</h1>'
+  templateUrl: 'app/app.component.html',
+  directives: [SimpleChartExample, StockChartExample]
 })
 export class AppComponent { }

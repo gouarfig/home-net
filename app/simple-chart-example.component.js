@@ -9,20 +9,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var simple_chart_example_component_1 = require('./simple-chart-example.component');
-var stock_chart_example_component_1 = require('./stock-chart-example.component');
-var AppComponent = (function () {
-    function AppComponent() {
+var angular2_highcharts_1 = require('angular2-highcharts');
+var SimpleChartExample = (function () {
+    function SimpleChartExample() {
+        this.options = {
+            title: { text: 'simple chart' },
+            series: [{
+                    data: [29.9, 71.5, 106.4, 129.2],
+                }]
+        };
     }
-    AppComponent = __decorate([
+    SimpleChartExample = __decorate([
         core_1.Component({
-            selector: 'my-app',
-            templateUrl: 'app/app.component.html',
-            directives: [simple_chart_example_component_1.SimpleChartExample, stock_chart_example_component_1.StockChartExample]
+            selector: 'simple-chart-example',
+            directives: [angular2_highcharts_1.CHART_DIRECTIVES],
+            template: "\n        <chart [options]=\"options\"></chart>\n    "
         }), 
         __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ], SimpleChartExample);
+    return SimpleChartExample;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.SimpleChartExample = SimpleChartExample;
+//# sourceMappingURL=simple-chart-example.component.js.map
