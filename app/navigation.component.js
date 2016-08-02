@@ -10,19 +10,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-var navigation_component_1 = require('./navigation.component');
-var AppComponent = (function () {
-    function AppComponent() {
+var NavigationComponent = (function () {
+    function NavigationComponent() {
     }
-    AppComponent = __decorate([
+    NavigationComponent = __decorate([
         core_1.Component({
-            selector: 'home-net-app',
-            templateUrl: 'app/app.component.html',
-            directives: [router_1.ROUTER_DIRECTIVES, navigation_component_1.NavigationComponent]
+            selector: 'navigation',
+            templateUrl: 'app/navigation.component.html',
+            directives: [router_1.ROUTER_DIRECTIVES],
         }), 
         __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ], NavigationComponent);
+    return NavigationComponent;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.NavigationComponent = NavigationComponent;
+//# sourceMappingURL=navigation.component.js.map

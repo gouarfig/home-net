@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { SimpleChartExample } from './simple-chart-example.component';
-import { StockChartExample } from './stock-chart-example.component';
+import { ROUTER_DIRECTIVES } from '@angular/router';
+import { NavigationComponent } from './navigation.component';
 
 @Component({
-  selector: 'my-app',
+  selector: 'home-net-app',
   templateUrl: 'app/app.component.html',
-  directives: [SimpleChartExample, StockChartExample]
+  directives: [ROUTER_DIRECTIVES, NavigationComponent]
 })
 export class AppComponent { }
