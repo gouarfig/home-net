@@ -4,6 +4,11 @@ import { AboutComponent } from './about.component';
 
 const routes: RouterConfig = [
   {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  },
+  {
     path: 'home',
     component: HomeComponent
   },
