@@ -13,6 +13,7 @@ var angular2_highcharts_1 = require('angular2-highcharts');
 var SimpleChartExample = (function () {
     function SimpleChartExample() {
         this.options = {
+            credits: { enabled: false },
             title: { text: 'simple chart' },
             series: [{
                     data: [29.9, 71.5, 106.4, 129.2],

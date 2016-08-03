@@ -11,6 +11,7 @@ import { CHART_DIRECTIVES } from 'angular2-highcharts';
 export class SimpleChartExample {
     constructor() {
         this.options = {
+            credits: { enabled: false },
             title : { text : 'simple chart' },
             series: [{
                 data: [29.9, 71.5, 106.4, 129.2],

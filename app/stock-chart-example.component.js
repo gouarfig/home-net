@@ -16,6 +16,7 @@ var StockChartExample = (function () {
         var _this = this;
         jsonp.request('https://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.json&callback=JSONP_CALLBACK').subscribe(function (res) {
             _this.options = {
+                credits: { enabled: false },
                 title: { text: 'AAPL Stock Price' },
                 series: [{
                         name: 'AAPL',
