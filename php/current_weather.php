@@ -4,7 +4,7 @@ require "config.php";
 
 date_default_timezone_set($config["timezone"]);
 
-$url = "http://api.openweathermap.org/data/2.5/weather?id={$config['town_id']}&units={$config['units']}&APPID={$config['appid']}";
+$url = urlencode("http://api.openweathermap.org/data/2.5/weather?id={$config['town_id']}&units={$config['units']}&APPID={$config['appid']}");
 
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
