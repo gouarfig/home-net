@@ -28,14 +28,22 @@ class Weather {
         $weather = json_decode($json, true);
 
         $this->validateData($weather);
+
+        $weather["dt"] = $this->addFormattedDate($this->config->full_date_format, $weather["dt"]);
+        $weather["sunrise"] = $this->addFormattedDate($this->config->hour_format, $weather["sys"]["sunrise"]);
+        $weather["sunset"] = $this->addFormattedDate($this->config->hour_format, $weather["sys"]["sunset"]);
+        $weather["timezone"] = date_default_timezone_get();
+        if (isset($weather["rain"])) {
+            $weather["rain"] = $this->precipitationFormat($weather["rain"]);
+        }
+        if (isset($weather["snow"])) {
+            $weather["snow"] = $this->precipitationFormat($weather["snow"]);
+        }
+
         unset($weather["coord"]);
         unset($weather["base"]);
         unset($weather["cod"]);
-
-        $weather["dt"] = $this->addFormattedDate($this->config->full_date_format, $weather["dt"]);
-        $weather["sys"]["sunrise"] = $this->addFormattedDate($this->config->hour_format, $weather["sys"]["sunrise"]);
-        $weather["sys"]["sunset"] = $this->addFormattedDate($this->config->hour_format, $weather["sys"]["sunset"]);
-        $weather["timezone"] = date_default_timezone_get();
+        unset($weather["sys"]);
 
         $json = json_encode($weather);
         return $json;
@@ -45,6 +53,13 @@ class Weather {
         $formatted = array(
             "timestamp" => $timestamp,
             "formatted" => date($format, $timestamp),
+        );
+        return $formatted;
+    }
+
+    private function precipitationFormat($orig) {
+        $formatted = array(
+            "three_hours" => $orig["3h"]
         );
         return $formatted;
     }
