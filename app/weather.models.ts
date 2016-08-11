@@ -25,6 +25,7 @@ export interface IClouds {
 }
 
 export interface IPrecipitation {
+    one_hour: number;
     three_hours: number;
 }
 
@@ -40,9 +41,9 @@ export interface IWeatherData {
     rain: IPrecipitation;
     snow: IPrecipitation;
     clouds: IClouds;
-    dt: IWeatherDateTime;
-    id: number;
-    name: string;
+    updated: IWeatherDateTime;
+    town_id: number;
+    town_name: string;
     timezone: number;
     sunrise: IWeatherDateTime;
     sunset: IWeatherDateTime;

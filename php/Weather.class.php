@@ -25,27 +25,26 @@ class Weather {
     }
 
     private function convertData($json) {
+        echo $json . "\n";
         $weather = json_decode($json, true);
 
         $this->validateData($weather);
 
-        $weather["dt"] = $this->addFormattedDate($this->config->full_date_format, $weather["dt"]);
-        $weather["sunrise"] = $this->addFormattedDate($this->config->hour_format, $weather["sys"]["sunrise"]);
-        $weather["sunset"] = $this->addFormattedDate($this->config->hour_format, $weather["sys"]["sunset"]);
-        $weather["timezone"] = date_default_timezone_get();
-        if (isset($weather["rain"])) {
-            $weather["rain"] = $this->precipitationFormat($weather["rain"]);
-        }
-        if (isset($weather["snow"])) {
-            $weather["snow"] = $this->precipitationFormat($weather["snow"]);
-        }
-
-        unset($weather["coord"]);
-        unset($weather["base"]);
-        unset($weather["cod"]);
-        unset($weather["sys"]);
-
-        $json = json_encode($weather);
+        $output = array(
+            "weather" => $weather["weather"],
+            "main" => $weather["main"],
+            "wind" => $weather["wind"],
+            "rain" => isset($weather["rain"]) ? $this->precipitationFormat($weather["rain"]) : null,
+            "snow" => isset($weather["snow"]) ? $this->precipitationFormat($weather["snow"]) : null,
+            "clouds" => $weather["clouds"],
+            "updated" => $this->addFormattedDate($this->config->full_date_format, $weather["dt"]),
+            "town_id" => $weather["id"],
+            "town_name" => $weather["name"],
+            "timezone" => date_default_timezone_get(),
+            "sunrise" => $this->addFormattedDate($this->config->hour_format, $weather["sys"]["sunrise"]),
+            "sunset" => $this->addFormattedDate($this->config->hour_format, $weather["sys"]["sunset"]),
+        );
+        $json = json_encode($output);
         return $json;
     }
 
@@ -59,7 +58,8 @@ class Weather {
 
     private function precipitationFormat($orig) {
         $formatted = array(
-            "three_hours" => $orig["3h"]
+            "one_hour" => isset($orig["1h"]) ? $orig["1h"] : null,
+            "three_hours" => isset($orig["3h"]) ? $orig["3h"] : null,
         );
         return $formatted;
     }

@@ -9,4 +9,4 @@ $config->setDefaultTimezone();
 $weather = new Weather($config);
 $json = $weather->getJSON();
 file_put_contents("weather.json", $json);
-echo $json;
+echo $json . "\n";
