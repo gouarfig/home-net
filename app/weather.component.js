@@ -17,6 +17,8 @@ var WeatherComponent = (function () {
         this.errorMessage = "Loading...";
     }
     WeatherComponent.prototype.dataEvent = function (data) {
+        console.log("dataEvent");
+        console.log(data);
         this.data = data;
     };
     WeatherComponent.prototype.errorEvent = function (error) {
@@ -24,9 +26,11 @@ var WeatherComponent = (function () {
         console.error(this.errorMessage);
     };
     WeatherComponent.prototype.completeEvent = function () {
+        console.log("completeEvent");
         this.errorMessage = "";
     };
     WeatherComponent.prototype.loadWeatherData = function () {
+        this.errorMessage = "Refreshing data...";
         this.weatherService.getWeather().subscribe(this.dataEvent, this.errorEvent, this.completeEvent);
     };
     WeatherComponent.prototype.ngOnInit = function () {

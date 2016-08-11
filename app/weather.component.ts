@@ -12,23 +12,27 @@ export class WeatherComponent implements OnInit {
     private data: IWeatherData = null;
     private errorMessage: any = "Loading...";
 
-    constructor(private weatherService: WeatherService) { 
+    constructor(private weatherService: WeatherService) {
     }
 
-    private dataEvent(data: IWeatherData){
+    private dataEvent(data: IWeatherData) {
+        console.log("dataEvent");
+        console.log(data);
         this.data = data;
     }
 
-    private errorEvent(error: any){
+    private errorEvent(error: any) {
         this.errorMessage = <any>error;
         console.error(this.errorMessage);
     }
 
     private completeEvent() {
+        console.log("completeEvent");
         this.errorMessage = "";
     }
 
-    private loadWeatherData(){
+    private loadWeatherData() {
+        this.errorMessage = "Refreshing data...";
         this.weatherService.getWeather().subscribe(
             this.dataEvent,
             this.errorEvent,
@@ -37,7 +41,7 @@ export class WeatherComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.loadWeatherData(); 
+        this.loadWeatherData();
     }
 
 }
