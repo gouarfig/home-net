@@ -5,9 +5,9 @@
     <div class="panel-body">
         <div *ngIf="data">
             <ul class="list-group">
-                <li class="list-group-item">Temperature: {{data.main.temp}}&deg;C</li>
-                <li class="list-group-item">Pressure: {{data.main.pressure}}hPa</li>
-                <li class="list-group-item">Humidity: {{data.main.humidity}}%</li>
+                <li class="list-group-item"><i class="wi wi-thermometer-exterior"></i> Temperature: {{data.main.temp}}&deg;C</li>
+                <li class="list-group-item"><i class="wi wi-barometer"></i> Pressure: {{data.main.pressure}}hPa</li>
+                <li class="list-group-item"><i class="wi wi-humidity"></i> Humidity: {{data.main.humidity}}%</li>
 
                 <li class="list-group-item">Wind speed: {{data.wind.speed}}meter/s</li>
                 <li class="list-group-item">Wind direction: {{data.wind.deg}}&deg;</li>
