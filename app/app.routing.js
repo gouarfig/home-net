@@ -2,7 +2,7 @@
 var router_1 = require('@angular/router');
 var home_component_1 = require('./home.component');
 var about_component_1 = require('./about.component');
-var routes = [
+var appRoutes = [
     {
         path: '',
         redirectTo: '/home',
@@ -16,7 +16,5 @@ var routes = [
         path: 'about',
         component: about_component_1.AboutComponent
     }];
-exports.appRouterProviders = [
-    router_1.provideRouter(routes)
-];
-//# sourceMappingURL=app.routes.js.map
+exports.routing = router_1.RouterModule.forRoot(appRoutes);
+//# sourceMappingURL=app.routing.js.map
