@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class WeatherService {
-    private weatherUrl = 'php/weather.json';  // URL to web API
+    private weatherUrl = 'php/weather.json';
 
     constructor(private http: Http) { }
 

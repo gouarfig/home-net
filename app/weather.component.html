@@ -1,10 +1,44 @@
-<div class="panel panel-default">
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Weather</h3>
+    </div>
     <div class="panel-body">
         <div *ngIf="data">
-            <div>Temperature: {{data.main.temp}}</div>
+            <ul class="list-group">
+                <li class="list-group-item">Temperature: {{data.main.temp}}&deg;C</li>
+                <li class="list-group-item">Pressure: {{data.main.pressure}}hPa</li>
+                <li class="list-group-item">Humidity: {{data.main.humidity}}%</li>
+
+                <li class="list-group-item">Wind speed: {{data.wind.speed}}meter/s</li>
+                <li class="list-group-item">Wind direction: {{data.wind.deg}}&deg;</li>
+
+                <li *ngIf="data.rain && data.rain.one_hour" class="list-group-item">Rain volume for the last hour: {{data.rain.one_hour}}mm</li>
+                <li *ngIf="data.rain && data.rain.three_hours" class="list-group-item">Rain volume for the last three hours: {{data.rain.three_hours}}mm</li>
+
+                <li *ngIf="data.snow && data.snow.one_hour" class="list-group-item">Snow volume for the last hour: {{data.snow.one_hour}}mm</li>
+                <li *ngIf="data.snow && data.snow.three_hours" class="list-group-item">Snow volume for the last three hours: {{data.snow.three_hours}}mm</li>
+
+                <li class="list-group-item">Cloudiness: {{data.clouds.all}}%</li>
+
+                <li class="list-group-item">Last updated: {{data.updated.formatted}}</li>
+                <li class="list-group-item">Sunrise: {{data.sunrise.formatted}}</li>
+                <li class="list-group-item">Sunset: {{data.sunset.formatted}}</li>
+            </ul>
         </div>
-        <div *ngIf="errorMessage">
-            <div>{{errorMessage}}</div>
+        <div *ngIf="messages.error" class="alert alert-dismissible alert-danger">
+            <button class="close" data-dismiss="alert" type="button">×</button>
+            <h4>Error:</h4>
+            <p>{{messages.error}}</p>
+        </div>
+        <div *ngIf="messages.warning" class="alert alert-dismissible alert-warning">
+            <button class="close" data-dismiss="alert" type="button">×</button>
+            <h4>Warning:</h4>
+            <p>{{messages.warning}}</p>
+        </div>
+        <div *ngIf="messages.information" class="alert alert-dismissible alert-info">
+            <button class="close" data-dismiss="alert" type="button">×</button>
+            <h4>Information:</h4>
+            <p>{{messages.information}}</p>
         </div>
         <a class="btn btn-default" (click)="loadWeatherData()">Refresh</a>
     </div>

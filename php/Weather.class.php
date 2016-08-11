@@ -25,7 +25,6 @@ class Weather {
     }
 
     private function convertData($json) {
-        echo $json . "\n";
         $weather = json_decode($json, true);
 
         $this->validateData($weather);

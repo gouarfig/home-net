@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IWeather, IMain, IWind, IClouds, IPrecipitation, IWeatherDateTime, IWeatherData } from './weather.models';
+import { Messages } from './messages';
 import { WeatherService } from './weather.service';
 
 @Component({
@@ -9,34 +10,38 @@ import { WeatherService } from './weather.service';
     providers: [WeatherService],
 })
 export class WeatherComponent implements OnInit {
-    private data: IWeatherData = null;
-    private errorMessage: any = "Loading...";
+    private data: IWeatherData;
+    private messages: Messages = new Messages();
+    private me = this;
 
     constructor(private weatherService: WeatherService) {
     }
 
+    private clearMessages() {
+        this.messages.clear();
+    }
+
     private dataEvent(data: IWeatherData) {
-        console.log("dataEvent");
-        console.log(data);
+        this.clearMessages();
         this.data = data;
     }
 
     private errorEvent(error: any) {
-        this.errorMessage = <any>error;
-        console.error(this.errorMessage);
+        this.messages.error = <any>error;
+        console.error(this.messages.error);
     }
 
     private completeEvent() {
-        console.log("completeEvent");
-        this.errorMessage = "";
+        // Nothing here for now
     }
 
     private loadWeatherData() {
-        this.errorMessage = "Refreshing data...";
+        this.clearMessages();
+        this.messages.information = "Refreshing data...";
         this.weatherService.getWeather().subscribe(
-            this.dataEvent,
-            this.errorEvent,
-            this.completeEvent
+            (data) => this.dataEvent(data),
+            (error) => this.errorEvent(error),
+            () => this.completeEvent()
         );
     }
 
