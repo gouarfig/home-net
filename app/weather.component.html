@@ -1,0 +1,11 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div *ngIf="data">
+            <div>Temperature: {{data.main.temp}}</div>
+        </div>
+        <div *ngIf="errorMessage">
+            <div>{{errorMessage}}</div>
+        </div>
+        <a class="btn btn-default" (click)="loadWeatherData()">Refresh</a>
+    </div>
+</div>

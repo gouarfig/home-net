@@ -1,0 +1,45 @@
+{
+    "weather": [
+        {
+            "id": 500,
+            "main": "Rain",
+            "description": "light rain",
+            "icon": "10d"
+        }
+    ],
+    "main": {
+        "temp": 13.33,
+        "pressure": 1010,
+        "humidity": 0,
+        "temp_min": 13.33,
+        "temp_max": 13.33
+    },
+    "wind": {
+        "speed": 1.03,
+        "deg": 169,
+        "gust": 3.08
+    },
+    "rain": {
+        "one_hour": 0.51,
+        "three_hours": null
+    },
+    "snow": null,
+    "clouds": {
+        "all": 100
+    },
+    "updated": {
+        "timestamp": 1470906484,
+        "formatted": "Thu 11th Aug 2016 10:08"
+    },
+    "town_id": 1,
+    "town_name": "London",
+    "timezone": "Europe\/London",
+    "sunrise": {
+        "timestamp": 1470889726,
+        "formatted": "05:28"
+    },
+    "sunset": {
+        "timestamp": 1470945536,
+        "formatted": "20:58"
+    }
+}

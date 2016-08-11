@@ -9,17 +9,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var weather_service_1 = require('./weather.service');
 var WeatherComponent = (function () {
-    function WeatherComponent() {
+    function WeatherComponent(weatherService) {
+        this.weatherService = weatherService;
+        this.data = null;
+        this.errorMessage = "Loading...";
     }
-    WeatherComponent.prototype.ngOnInit = function () { };
+    WeatherComponent.prototype.dataEvent = function (data) {
+        this.data = data;
+    };
+    WeatherComponent.prototype.errorEvent = function (error) {
+        this.errorMessage = error;
+        console.error(this.errorMessage);
+    };
+    WeatherComponent.prototype.completeEvent = function () {
+        this.errorMessage = "";
+    };
+    WeatherComponent.prototype.loadWeatherData = function () {
+        this.weatherService.getWeather().subscribe(this.dataEvent, this.errorEvent, this.completeEvent);
+    };
+    WeatherComponent.prototype.ngOnInit = function () {
+        this.loadWeatherData();
+    };
     WeatherComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'weather',
-            templateUrl: 'weather.component.html'
+            templateUrl: 'weather.component.html',
+            providers: [weather_service_1.WeatherService],
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [weather_service_1.WeatherService])
     ], WeatherComponent);
     return WeatherComponent;
 }());

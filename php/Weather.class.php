@@ -44,7 +44,10 @@ class Weather {
             "sunrise" => $this->addFormattedDate($this->config->hour_format, $weather["sys"]["sunrise"]),
             "sunset" => $this->addFormattedDate($this->config->hour_format, $weather["sys"]["sunset"]),
         );
-        $json = json_encode($output);
+        $data = array(
+            "data" => $output
+        );
+        $json = json_encode($data);
         return $json;
     }
 

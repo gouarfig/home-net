@@ -40,5 +40,11 @@ describe('Weather Models', function () {
         var weather = anonObject;
         expect(weather).toBeNull();
     });
+    it('IWeather can be loaded from an empty object', function () {
+        var anonObject = {};
+        var weather = anonObject;
+        expect(weather).not.toBeUndefined();
+        expect(weather.id).toBeUndefined();
+    });
 });
 //# sourceMappingURL=weather.models.spec.js.map

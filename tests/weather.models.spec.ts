@@ -44,4 +44,11 @@ describe('Weather Models', () => {
         let weather: IWeather = anonObject;
         expect(weather).toBeNull();
     });
+
+    it('IWeather can be loaded from an empty object', () => {
+        let anonObject: any = {};
+        let weather: IWeather = anonObject;
+        expect(weather).not.toBeUndefined();
+        expect(weather.id).toBeUndefined();
+    });
 });

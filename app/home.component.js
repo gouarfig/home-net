@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var simple_chart_example_component_1 = require('./simple-chart-example.component');
 var stock_chart_example_component_1 = require('./stock-chart-example.component');
+var weather_component_1 = require('./weather.component');
 var HomeComponent = (function () {
     function HomeComponent() {
     }
@@ -18,7 +19,10 @@ var HomeComponent = (function () {
         core_1.Component({
             selector: 'home',
             templateUrl: 'app/home.component.html',
-            directives: [simple_chart_example_component_1.SimpleChartExample, stock_chart_example_component_1.StockChartExample],
+            directives: [
+                weather_component_1.WeatherComponent,
+                simple_chart_example_component_1.SimpleChartExample,
+                stock_chart_example_component_1.StockChartExample],
         }), 
         __metadata('design:paramtypes', [])
     ], HomeComponent);
