@@ -4,33 +4,93 @@
     </div>
     <div class="panel-body">
         <div *ngIf="data">
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <p class="lead"><i class="wi wi-thermometer-exterior"></i> Temperature: {{data.main.temp}}&deg;C</p>
-                </li>
-                <li class="list-group-item"><i class="wi wi-barometer"></i> Pressure: {{data.main.pressure}}hPa</li>
-                <li class="list-group-item"><i class="wi wi-humidity"></i> Humidity: {{data.main.humidity}}%</li>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="list-group">
+                        <li *ngIf="data.weather" class="list-group-item">
+                            <h4 class="list-group-item-heading">Weather:</h4>
+                            <p class="list-group-item-text" *ngFor="let weather of data.weather">
+                                <i class="wi wi-{{weather.weather_icon}}"></i> {{weather.description}}
+                            </p>
+                        </li>
+                        <li class="list-group-item">
+                            <h5 class="list-group-item-heading">Last updated:</h5>
+                            <i class="wi wi-refresh"></i> {{data.updated.formatted}}
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <li class="list-group-item">
+                        <h5 class="list-group-item-heading">Sunrise:</h5>
+                        <i class="wi wi-sunrise"></i> {{data.sunrise.formatted}}
+                    </li>
+                    <li class="list-group-item">
+                        <h5 class="list-group-item-heading">Sunset:</h5>
+                        <i class="wi wi-sunset"></i> {{data.sunset.formatted}}
+                    </li>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <ul class="list-group">
+                        <li *ngIf="data.main && data.main.temp" class="list-group-item">
+                            <h5 class="list-group-item-heading">Temperature:</h5>
+                            <i class="wi wi-thermometer-exterior"></i> {{data.main.temp}} &deg;C
+                        </li>
+                        <li *ngIf="data.main && data.main.pressure" class="list-group-item">
+                            <h5 class="list-group-item-heading">Pressure:</h5>
+                            <i class="wi wi-barometer"></i> {{data.main.pressure}} hPa
+                        </li>
+                        <li *ngIf="data.main && data.main.humidity" class="list-group-item">
+                            <h5 class="list-group-item-heading">Humidity:</h5>
+                            <i class="wi wi-humidity"></i> {{data.main.humidity}} %
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-group">
+                        <li *ngIf="data.wind && data.wind.speed_kmh" class="list-group-item">
+                            <h5 class="list-group-item-heading">Wind speed:</h5>
+                            <i class="wi wi-windy"></i> {{data.wind.speed_kmh}} km/h
+                        </li>
+                        <li *ngIf="data.wind && data.wind.gust_kmh" class="list-group-item">
+                            <h5 class="list-group-item-heading">Gust speed:</h5>
+                            <i class="wi wi-strong-wind"></i> {{data.wind.gust_kmh}} km/h
+                        </li>
+                        <li *ngIf="data.wind && data.wind.deg" class="list-group-item">
+                            <h5 class="list-group-item-heading">Wind direction:</h5>
+                            <i class="wi wi-wind from-{{data.wind.deg}}-deg"></i> {{data.wind.deg}} &deg;
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-group">
+                        <li *ngIf="data.rain && data.rain.one_hour" class="list-group-item">
+                            <h5 class="list-group-item-heading">Rain volume for the last hour:</h5>
+                            <i class="wi wi-rain"></i> {{data.rain.one_hour}} mm
+                        </li>
+                        <li *ngIf="data.rain && data.rain.three_hours" class="list-group-item">
+                            <h5 class="list-group-item-heading">Rain volume for the last three hours:</h5>
+                            <i class="wi wi-rain"></i> {{data.rain.three_hours}} mm
+                        </li>
 
-                <li class="list-group-item">Wind speed: {{data.wind.speed_kmh}}km/h</li>
-                <li *ngIf="data.wind.gust_kmh" class="list-group-item">Gust speed: {{data.wind.gust_kmh}}km/h</li>
-                <li class="list-group-item">
-                    <p class="lead">
-                        <i class="wi wi-wind from-{{data.wind.deg}}-deg"></i>
-                        Wind direction: {{data.wind.deg}}&deg;</p>
-                </li>
+                        <li *ngIf="data.snow && data.snow.one_hour" class="list-group-item">
+                            <h5 class="list-group-item-heading">Snow volume for the last hour:</h5>
+                            <i class="wi wi-snow"></i> {{data.snow.one_hour}} mm
+                        </li>
+                        <li *ngIf="data.snow && data.snow.three_hours" class="list-group-item">
+                            <h5 class="list-group-item-heading">Snow volume for the last three hours:</h5>
+                            <i class="wi wi-snow"></i> {{data.snow.three_hours}} mm
+                        </li>
 
-                <li *ngIf="data.rain && data.rain.one_hour" class="list-group-item">Rain volume for the last hour: {{data.rain.one_hour}}mm</li>
-                <li *ngIf="data.rain && data.rain.three_hours" class="list-group-item">Rain volume for the last three hours: {{data.rain.three_hours}}mm</li>
+                        <li *ngIf="data.clouds && data.clouds.all" class="list-group-item">
+                            <h5 class="list-group-item-heading">Cloudiness:</h5>
+                            <i class="wi wi-cloud"></i> {{data.clouds.all}} %
+                        </li>
 
-                <li *ngIf="data.snow && data.snow.one_hour" class="list-group-item">Snow volume for the last hour: {{data.snow.one_hour}}mm</li>
-                <li *ngIf="data.snow && data.snow.three_hours" class="list-group-item">Snow volume for the last three hours: {{data.snow.three_hours}}mm</li>
-
-                <li class="list-group-item">Cloudiness: {{data.clouds.all}}%</li>
-
-                <li class="list-group-item">Last updated: {{data.updated.formatted}}</li>
-                <li class="list-group-item">Sunrise: {{data.sunrise.formatted}}</li>
-                <li class="list-group-item">Sunset: {{data.sunset.formatted}}</li>
-            </ul>
+                    </ul>
+                </div>
+            </div>
         </div>
         <div *ngIf="messages.error" class="alert alert-dismissible alert-danger">
             <button class="close" data-dismiss="alert" type="button">×</button>
@@ -47,6 +107,6 @@
             <h4>Information:</h4>
             <p>{{messages.information}}</p>
         </div>
-        <a class="btn btn-default" (click)="loadWeatherData()">Refresh</a>
+        <a class="btn btn-default" (click)="loadWeatherData()"><i class="wi wi-refresh"></i> Refresh</a>
     </div>
 </div>

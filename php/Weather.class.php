@@ -37,7 +37,7 @@ class Weather {
 
     private function convertSingleWeatherData($input) {
         $output = array(
-            "weather" => $input["weather"],
+            "weather" => $this->addWeatherIcons($input["weather"]),
             "main" => $input["main"],
             "wind" => $this->windConversion($input["wind"]),
             "rain" => isset($input["rain"]) ? $this->precipitationFormat($input["rain"]) : null,
@@ -100,7 +100,7 @@ class Weather {
     }
 
     private function meterPerSecondToKmPerHour($ms) {
-        $kmh = ($ms * 3600) / 1000;
+        $kmh = round(($ms * 3600) / 1000);
         return $kmh;
     }
 
@@ -112,6 +112,69 @@ class Weather {
             "gust_kmh" => isset($input["gust"]) ? $this->meterPerSecondToKmPerHour($input["gust"]) : null,
             "deg" => $input["deg"],
         );
+        return $output;
+    }
+
+    private function getWeatherIconFromId($id, $icon) {
+        if (strpos($icon, 'd') !== false) $day_night = "day";
+        else if (strpos($icon, 'n') !== false) $day_night = "night";
+
+        switch ($id) {
+            case 500:
+            case 501:
+                $weather_icon = "{$day_night}-rain-mix";
+                break;
+
+            case 502:
+            case 503:
+            case 504:
+                $weather_icon = "{$day_night}-rain";
+                break;
+
+            case 520:
+            case 521:
+            case 522:
+            case 531:
+                $weather_icon = "{$day_night}-showers";
+                break;
+
+            case 800:   // clear sky
+                $weather_icon = "{$day_night}-clear";
+                break;
+            
+            case 801:   // few clouds
+                $weather_icon = "{$day_night}-sunny-overcast";
+                break;
+            
+            case 802:   // scattered clouds
+                $weather_icon = "{$day_night}-cloudy";
+                break;
+            
+            case 803:   // broken clouds
+                $weather_icon = "cloudy";
+                break;
+            
+            case 804:   // overcast clouds
+                $weather_icon = "cloud";
+                break;
+            
+            default:
+                $weather_icon = "na";
+                break;
+        }
+        return $weather_icon;
+    }
+
+    private function addWeatherIcons($array) {
+        $output = array();
+        foreach ($array as $input) {
+            $output[] = array(
+                "id" => $input["id"],
+                "main" => $input["main"],
+                "description" => $input["description"],
+                "weather_icon" => $this->getWeatherIconFromId($input["id"], $input["icon"]),
+            );
+        }
         return $output;
     }
 

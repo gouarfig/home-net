@@ -38,3 +38,8 @@ code {
 h1 {
   color: #369;
 }
+
+i.wi {
+  font-size: 22px;
+  padding-right: 6px;
+}
