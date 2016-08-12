@@ -17,6 +17,12 @@ class Weather {
         return $result;
     }
 
+    private function toArray($json) {
+        file_put_contents("last_api_call.json", $json);
+        $array = json_decode($json, true);
+        return $array;
+    }
+
     private function validateWeatherData($input) {
         if ($input["id"] !== $this->config->town_id) {
             throw new Exception("Invalid JSON data (id={$input['id']})");
@@ -33,7 +39,7 @@ class Weather {
         $output = array(
             "weather" => $input["weather"],
             "main" => $input["main"],
-            "wind" => $input["wind"],
+            "wind" => $this->windConversion($input["wind"]),
             "rain" => isset($input["rain"]) ? $this->precipitationFormat($input["rain"]) : null,
             "snow" => isset($input["snow"]) ? $this->precipitationFormat($input["snow"]) : null,
             "clouds" => $input["clouds"],
@@ -43,7 +49,7 @@ class Weather {
     }
 
     private function convertWeatherData($json) {
-        $input = json_decode($json, true);
+        $input = $this->toArray($json);
 
         $this->validateWeatherData($input);
 
@@ -61,7 +67,7 @@ class Weather {
     }
 
     private function convertForecastData($json) {
-        $input = json_decode($json, true);
+        $input = $this->toArray($json);
 
         $this->validateForecastData($input);
 
@@ -91,6 +97,22 @@ class Weather {
             "three_hours" => isset($orig["3h"]) ? $orig["3h"] : null,
         );
         return $formatted;
+    }
+
+    private function meterPerSecondToKmPerHour($ms) {
+        $kmh = ($ms * 3600) / 1000;
+        return $kmh;
+    }
+
+    private function windConversion($input) {
+        $output = array(
+            "speed_ms" => isset($input["speed"]) ? $input["speed"] : null,
+            "speed_kmh" => isset($input["speed"]) ? $this->meterPerSecondToKmPerHour($input["speed"]) : null,
+            "gust_ms" => isset($input["gust"]) ? $input["gust"] : null,
+            "gust_kmh" => isset($input["gust"]) ? $this->meterPerSecondToKmPerHour($input["gust"]) : null,
+            "deg" => $input["deg"],
+        );
+        return $output;
     }
 
     public function getWeather() {

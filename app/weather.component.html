@@ -5,12 +5,19 @@
     <div class="panel-body">
         <div *ngIf="data">
             <ul class="list-group">
-                <li class="list-group-item"><i class="wi wi-thermometer-exterior"></i> Temperature: {{data.main.temp}}&deg;C</li>
+                <li class="list-group-item">
+                    <p class="lead"><i class="wi wi-thermometer-exterior"></i> Temperature: {{data.main.temp}}&deg;C</p>
+                </li>
                 <li class="list-group-item"><i class="wi wi-barometer"></i> Pressure: {{data.main.pressure}}hPa</li>
                 <li class="list-group-item"><i class="wi wi-humidity"></i> Humidity: {{data.main.humidity}}%</li>
 
-                <li class="list-group-item">Wind speed: {{data.wind.speed}}meter/s</li>
-                <li class="list-group-item">Wind direction: {{data.wind.deg}}&deg;</li>
+                <li class="list-group-item">Wind speed: {{data.wind.speed_kmh}}km/h</li>
+                <li *ngIf="data.wind.gust_kmh" class="list-group-item">Gust speed: {{data.wind.gust_kmh}}km/h</li>
+                <li class="list-group-item">
+                    <p class="lead">
+                        <i class="wi wi-wind from-{{data.wind.deg}}-deg"></i>
+                        Wind direction: {{data.wind.deg}}&deg;</p>
+                </li>
 
                 <li *ngIf="data.rain && data.rain.one_hour" class="list-group-item">Rain volume for the last hour: {{data.rain.one_hour}}mm</li>
                 <li *ngIf="data.rain && data.rain.three_hours" class="list-group-item">Rain volume for the last three hours: {{data.rain.three_hours}}mm</li>

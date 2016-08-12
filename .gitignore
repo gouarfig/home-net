@@ -43,4 +43,4 @@ typings
 app/*.js
 app/*.js.map
 php/Config.class.php
-php/weather.json
+php/*.json
