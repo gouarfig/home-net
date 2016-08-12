@@ -2,11 +2,25 @@
 
 require "Config.class.php";
 require "Weather.class.php";
+require "ApiResult.class.php";
 
-$config = new Config();
-$config->setDefaultTimezone();
+try {
+    $config = new Config();
+    $config->setDefaultTimezone();
 
-$weather = new Weather($config);
-$json = $weather->getWeatherJSON();
-file_put_contents("weather.json", $json);
-echo $json . "\n";
+    $weather = new Weather($config);
+    $data = $weather->getWeather();
+
+    $apiResult = new ApiResult();
+    $apiResult->setData($data);
+    $apiResult->success();
+    $json = $apiResult->getJSON();
+
+    file_put_contents("weather.json", $json);
+    echo $json . "\n";
+}
+catch(Exception $e) {
+    $apiResult = new ApiResult();
+    $apiResult->error($e->message, $e->code);
+    $apiResult->sendJSON();
+}
