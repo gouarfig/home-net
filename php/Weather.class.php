@@ -8,8 +8,7 @@ class Weather {
         $this->config = $config;
     }
 
-    private function getRawJSON() {
-        $url = $this->config->getWeatherUrl();
+    private function getRawJSON($url) {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -18,30 +17,62 @@ class Weather {
         return $result;
     }
 
-    private function validateData($weather) {
-        if ($weather["id"] !== $this->config->town_id) {
-            throw new Exception("Invalid JSON data");
+    private function validateWeatherData($input) {
+        if ($input["id"] !== $this->config->town_id) {
+            throw new Exception("Invalid JSON data (id={$input['id']})");
         }
     }
 
-    private function convertData($json) {
-        $weather = json_decode($json, true);
+    private function validateForecastData($input) {
+        if ($input["city"]["id"] !== $this->config->town_id) {
+            throw new Exception("Invalid JSON data (id={$input["city"]['id']})");
+        }
+    }
 
-        $this->validateData($weather);
+    private function convertWeatherData($json) {
+        $input = json_decode($json, true);
+
+        $this->validateWeatherData($input);
 
         $output = array(
-            "weather" => $weather["weather"],
-            "main" => $weather["main"],
-            "wind" => $weather["wind"],
-            "rain" => isset($weather["rain"]) ? $this->precipitationFormat($weather["rain"]) : null,
-            "snow" => isset($weather["snow"]) ? $this->precipitationFormat($weather["snow"]) : null,
-            "clouds" => $weather["clouds"],
-            "updated" => $this->addFormattedDate($this->config->full_date_format, $weather["dt"]),
-            "town_id" => $weather["id"],
-            "town_name" => $weather["name"],
+            "weather" => $input["weather"],
+            "main" => $input["main"],
+            "wind" => $input["wind"],
+            "rain" => isset($input["rain"]) ? $this->precipitationFormat($input["rain"]) : null,
+            "snow" => isset($input["snow"]) ? $this->precipitationFormat($input["snow"]) : null,
+            "clouds" => $input["clouds"],
+            "updated" => $this->addFormattedDate($this->config->full_date_format, $input["dt"]),
+            "town_id" => $input["id"],
+            "town_name" => $input["name"],
             "timezone" => date_default_timezone_get(),
-            "sunrise" => $this->addFormattedDate($this->config->hour_format, $weather["sys"]["sunrise"]),
-            "sunset" => $this->addFormattedDate($this->config->hour_format, $weather["sys"]["sunset"]),
+            "sunrise" => $this->addFormattedDate($this->config->hour_format, $input["sys"]["sunrise"]),
+            "sunset" => $this->addFormattedDate($this->config->hour_format, $input["sys"]["sunset"]),
+        );
+        $data = array(
+            "data" => $output
+        );
+        $json = json_encode($data);
+        return $json;
+    }
+
+    private function convertForecastData($json) {
+        $input = json_decode($json, true);
+
+        $this->validateForecastData($input);
+
+        $output = array(
+            "weather" => $input["weather"],
+            "main" => $input["main"],
+            "wind" => $input["wind"],
+            "rain" => isset($input["rain"]) ? $this->precipitationFormat($input["rain"]) : null,
+            "snow" => isset($input["snow"]) ? $this->precipitationFormat($input["snow"]) : null,
+            "clouds" => $input["clouds"],
+            "updated" => $this->addFormattedDate($this->config->full_date_format, $input["dt"]),
+            "town_id" => $input["city"]["id"],
+            "town_name" => $input["city"]["name"],
+            "timezone" => date_default_timezone_get(),
+            "sunrise" => $this->addFormattedDate($this->config->hour_format, $input["sys"]["sunrise"]),
+            "sunset" => $this->addFormattedDate($this->config->hour_format, $input["sys"]["sunset"]),
         );
         $data = array(
             "data" => $output
@@ -66,9 +97,15 @@ class Weather {
         return $formatted;
     }
 
-    public function getJSON() {
-        $json = $this->getRawJSON();
-        $json = $this->convertData($json);
+    public function getWeatherJSON() {
+        $json = $this->getRawJSON($this->config->getWeatherUrl());
+        $json = $this->convertWeatherData($json);
+        return $json;
+    }
+
+    public function getForecastJSON() {
+        $json = $this->getRawJSON($this->config->getForecastUrl());
+        $json = $this->convertForecastData($json);
         return $json;
     }
 }

@@ -7,6 +7,6 @@ $config = new Config();
 $config->setDefaultTimezone();
 
 $weather = new Weather($config);
-$json = $weather->getJSON();
-file_put_contents("weather.json", $json);
+$json = $weather->getForecastJSON();
+file_put_contents("forecast.json", $json);
 echo $json . "\n";
