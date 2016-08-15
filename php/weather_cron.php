@@ -17,10 +17,7 @@ try {
     $json = $apiResult->getJSON();
 
     file_put_contents("weather.json", $json);
-    echo $json . "\n";
 }
 catch (Exception $e) {
-    $apiResult = new ApiResult();
-    $apiResult->error($e->getMessage(), $e->getCode());
-    $apiResult->sendJSON();
+    file_put_contents("weather_cron.log", $e->getMessage(), FILE_APPEND);
 }
