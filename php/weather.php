@@ -21,6 +21,6 @@ try {
 }
 catch(Exception $e) {
     $apiResult = new ApiResult();
-    $apiResult->error($e->message, $e->code);
+    $apiResult->error($e->getMessage(), $e->getCode());
     $apiResult->sendJSON();
 }

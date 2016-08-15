@@ -24,6 +24,9 @@ class Weather {
     }
 
     private function validateWeatherData($input) {
+        if ($input["cod"] !== 200) {
+            throw new Exception("HTTP error {$input['cod']}: {$input['message']}", $input["cod"]);
+        }
         if ($input["id"] !== $this->config->town_id) {
             throw new Exception("Invalid JSON data (id={$input['id']})");
         }
