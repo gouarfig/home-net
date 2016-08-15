@@ -142,7 +142,8 @@ class Weather {
                 break;
 
             case 800:   // clear sky
-                $weather_icon = "{$day_night}-clear";
+                if ($day_night == "day") $weather_icon = "day-sunny";
+                else if ($day_night == "night") $weather_icon = "night-clear";
                 break;
             
             case 801:   // few clouds
