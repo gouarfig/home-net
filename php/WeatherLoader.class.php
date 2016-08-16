@@ -1,6 +1,6 @@
 <?php
 
-class Weather {
+class WeatherLoader {
     private $config = null;
 
     function __construct(Config $config){

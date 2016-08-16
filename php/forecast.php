@@ -1,15 +1,15 @@
 <?php
 
 require "Config.class.php";
-require "Weather.class.php";
+require "WeatherLoader.class.php";
 require "ApiResult.class.php";
 
 try {
     $config = new Config();
     $config->setDefaultTimezone();
 
-    $weather = new Weather($config);
-    $data = $weather->getForecast();
+    $weatherLoader = new WeatherLoader($config);
+    $data = $weatherLoader->getForecast();
 
     $apiResult = new ApiResult();
     $apiResult->setData($data);
