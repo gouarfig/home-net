@@ -1,8 +1,8 @@
 <?php
 
-require "Config.class.php";
-require "WeatherLoader.class.php";
-require "ApiResult.class.php";
+require_once "Config.class.php";
+require_once "WeatherLoader.class.php";
+require_once "ApiResult.class.php";
 
 try {
     $config = new Config();
