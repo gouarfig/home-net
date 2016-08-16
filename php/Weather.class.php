@@ -1,8 +1,8 @@
 <?php
 
 class Weather {
+    public $id = 0;
     public $weather_id = 0;
-    public $weather = "";
     public $temperature = 0;
     public $pressure = 1000;
     public $humidity = 0;

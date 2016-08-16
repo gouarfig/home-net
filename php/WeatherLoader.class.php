@@ -103,7 +103,7 @@ class WeatherLoader {
     }
 
     private function meterPerSecondToKmPerHour($ms) {
-        $kmh = round(($ms * 3600) / 1000);
+        $kmh = round(($ms * 3600) / 1000, 2);
         return $kmh;
     }
 

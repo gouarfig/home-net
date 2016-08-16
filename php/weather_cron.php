@@ -21,13 +21,15 @@ try {
     file_put_contents("weather.json", $json);
 
     $weather = new Weather();
-    $weather->weather = $data["weather"][0]["id"];
+    $weather->weather_id = $data["weather"][0]["id"];
     $weather->temperature = $data["main"]["temp"];
     $weather->pressure = $data["main"]["pressure"];
     $weather->humidity = $data["main"]["humidity"];
     $weather->wind_speed = $data["wind"]["speed_kmh"];
     $weather->gust_speed = $data["wind"]["gust_kmh"];
     $weather->wind_direction = $data["wind"]["deg"];
+    $weather->clouds = $data["clouds"]["all"];
+    $weather->updated = new DateTime("@" . $data["updated"]["timestamp"]);
     $repository = new WeatherRepository($config);
     $repository->save($weather);
     $repository->closeConnection();

@@ -35,16 +35,17 @@ class WeatherRepository {
     public function save(Weather $weather) {
         if (!$this->connectionOpened()) $this->openConnection();
         $query = "INSERT INTO `weather` ";
-        $query .= "(`weather`, `temperature`, `pressure`, `humidity`, `wind_speed`, `gust_speed`, `wind_direction`, `recorded`) ";
+        $query .= "(`weather_id`, `temperature`, `pressure`, `humidity`, `wind_speed`, `gust_speed`, `wind_direction`, `clouds`, `updated`) ";
         $query .= "VALUES (";
-        $query .= "'" . $this->mysqli->real_escape_string($weather->weather) . "', ";
+        $query .= "{$weather->weather_id}, ";
         $query .= "{$weather->temperature}, ";
         $query .= "{$weather->pressure}, ";
         $query .= "{$weather->humidity}, ";
         $query .= "{$weather->wind_speed}, ";
         $query .= "{$weather->gust_speed}, ";
         $query .= "{$weather->wind_direction}, ";
-        $query .= "UTC_TIMESTAMP()";
+        $query .= "{$weather->clouds}, ";
+        $query .= "'" . $weather->updated->format('Y-m-d H:i:sP') . "'";
         $query .= ")";
         $result = $this->mysqli->query($query);
         if (!$result) throw new Exception("And mysqli exception occured: " . $this->mysqli->error);
