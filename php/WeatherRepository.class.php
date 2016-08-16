@@ -19,6 +19,9 @@ class WeatherRepository {
             $this->config->db_password,
             $this->config->db_name
             );
+        if ($this->mysqli->connect_errno) {
+            throw new Exception("Mysqli connect failed: " . $this->mysqli->connect_error, $this->mysqli->connect_errno);
+        }
     }
 
     public function closeConnection() {
@@ -43,6 +46,7 @@ class WeatherRepository {
         $query .= "{$weather->wind_direction}, ";
         $query .= "UTC_TIMESTAMP()";
         $query .= ")";
-        $this->mysqli->query($query);
+        $result = $this->mysqli->query($query);
+        if (!$result) throw new Exception("And mysqli exception occured: " . $this->mysqli->error);
     }
 }

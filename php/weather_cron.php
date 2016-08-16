@@ -23,7 +23,7 @@ try {
     $weather = new Weather();
     $repository = new WeatherRepository($config);
     $repository->save($weather);
-    $repository->close();
+    $repository->closeConnection();
 }
 catch (Exception $e) {
     file_put_contents("weather_cron.log", $e->getMessage(), FILE_APPEND);
