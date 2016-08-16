@@ -37,7 +37,7 @@ class WeatherRepository {
         $query = "INSERT INTO `weather` ";
         $query .= "(`weather`, `temperature`, `pressure`, `humidity`, `wind_speed`, `gust_speed`, `wind_direction`, `recorded`) ";
         $query .= "VALUES (";
-        $query .= "'" . $this->mysqli->real_escape_string($weather->weather) . "' ";
+        $query .= "'" . $this->mysqli->real_escape_string($weather->weather) . "', ";
         $query .= "{$weather->temperature}, ";
         $query .= "{$weather->pressure}, ";
         $query .= "{$weather->humidity}, ";
