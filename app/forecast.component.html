@@ -1,0 +1,104 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Forecast <span *ngIf="data">for {{data.town_name}}</span></h3>
+    </div>
+    <div class="panel-body">
+        <div *ngIf="data">
+            <div *ngFor="let item of data.list">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-group">
+                            <li *ngIf="item.weather" class="list-group-item">
+                                <h4 class="list-group-item-heading">Weather:</h4>
+                                <p class="list-group-item-text" *ngFor="let weather of item.weather">
+                                    <i class="wi wi-{{weather.weather_icon}}"></i> {{weather.description}}
+                                </p>
+                            </li>
+                            <li class="list-group-item">
+                                <h5 class="list-group-item-heading">Last updated:</h5>
+                                <i class="wi wi-refresh"></i> {{item.updated.formatted}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <ul class="list-group">
+                            <li *ngIf="item.main && item.main.temp" class="list-group-item">
+                                <h5 class="list-group-item-heading">Temperature:</h5>
+                                <i class="wi wi-thermometer-exterior"></i> {{item.main.temp}} &deg;C
+                            </li>
+                            <li *ngIf="item.main && item.main.pressure" class="list-group-item">
+                                <h5 class="list-group-item-heading">Pressure:</h5>
+                                <i class="wi wi-barometer"></i> {{item.main.pressure}} hPa
+                            </li>
+                            <li *ngIf="item.main && item.main.humidity" class="list-group-item">
+                                <h5 class="list-group-item-heading">Humidity:</h5>
+                                <i class="wi wi-humidity"></i> {{item.main.humidity}} %
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <ul class="list-group">
+                            <li *ngIf="item.wind && item.wind.speed_kmh" class="list-group-item">
+                                <h5 class="list-group-item-heading">Wind speed:</h5>
+                                <i class="wi wi-windy"></i> {{item.wind.speed_kmh}} km/h
+                            </li>
+                            <li *ngIf="item.wind && item.wind.gust_kmh" class="list-group-item">
+                                <h5 class="list-group-item-heading">Gust speed:</h5>
+                                <i class="wi wi-strong-wind"></i> {{item.wind.gust_kmh}} km/h
+                            </li>
+                            <li *ngIf="item.wind && item.wind.deg" class="list-group-item">
+                                <h5 class="list-group-item-heading">Wind direction:</h5>
+                                <i class="wi wi-wind from-{{item.wind.deg}}-deg"></i> {{item.wind.deg}} &deg;
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <ul class="list-group">
+                            <li *ngIf="item.rain && item.rain.one_hour" class="list-group-item">
+                                <h5 class="list-group-item-heading">Rain volume for the last hour:</h5>
+                                <i class="wi wi-rain"></i> {{item.rain.one_hour}} mm
+                            </li>
+                            <li *ngIf="item.rain && item.rain.three_hours" class="list-group-item">
+                                <h5 class="list-group-item-heading">Rain volume for the last three hours:</h5>
+                                <i class="wi wi-rain"></i> {{item.rain.three_hours}} mm
+                            </li>
+
+                            <li *ngIf="item.snow && item.snow.one_hour" class="list-group-item">
+                                <h5 class="list-group-item-heading">Snow volume for the last hour:</h5>
+                                <i class="wi wi-snow"></i> {{item.snow.one_hour}} mm
+                            </li>
+                            <li *ngIf="item.snow && item.snow.three_hours" class="list-group-item">
+                                <h5 class="list-group-item-heading">Snow volume for the last three hours:</h5>
+                                <i class="wi wi-snow"></i> {{item.snow.three_hours}} mm
+                            </li>
+
+                            <li *ngIf="item.clouds && item.clouds.all" class="list-group-item">
+                                <h5 class="list-group-item-heading">Cloudiness:</h5>
+                                <i class="wi wi-cloud"></i> {{item.clouds.all}} %
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="messages.error" class="alert alert-dismissible alert-danger">
+            <button class="close" data-dismiss="alert" type="button">×</button>
+            <h4>Error:</h4>
+            <p>{{messages.error}}</p>
+        </div>
+        <div *ngIf="messages.warning" class="alert alert-dismissible alert-warning">
+            <button class="close" data-dismiss="alert" type="button">×</button>
+            <h4>Warning:</h4>
+            <p>{{messages.warning}}</p>
+        </div>
+        <div *ngIf="messages.information" class="alert alert-dismissible alert-info">
+            <button class="close" data-dismiss="alert" type="button">×</button>
+            <h4>Information:</h4>
+            <p>{{messages.information}}</p>
+        </div>
+        <a class="btn btn-default" (click)="loadWeatherData()"><i class="wi wi-refresh"></i> Refresh</a>
+    </div>
+</div>

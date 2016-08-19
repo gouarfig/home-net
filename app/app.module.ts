@@ -5,10 +5,12 @@ import { HttpModule } from '@angular/http';
 import { routing } from './app.routing';
 
 import { WeatherService } from './weather.service';
+import { ForecastService } from './forecast.service';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home.component';
-import { WeatherComponent } from './weather.component';
+import { WeatherPageComponent } from './weatherpage.component';
+import { ForecastPageComponent } from './forecastpage.component';
 import { AboutComponent } from './about.component';
 
 @NgModule({
@@ -21,7 +23,8 @@ import { AboutComponent } from './about.component';
     declarations: [
         AppComponent,
         HomeComponent,
-        WeatherComponent,
+        WeatherPageComponent,
+        ForecastPageComponent,
         AboutComponent,
     ],
     providers: [
