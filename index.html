@@ -30,6 +30,7 @@
     <!-- 2. Configure SystemJS -->
     <script src="systemjs.config.js"></script>
     <script>
+      if (System === undefined) document.write("ERROR: System class is not defined. Are the dependencies loaded on the server?");
       System.import('app').catch(function(err){ console.error(err); });
     </script>
   </head>
