@@ -39,8 +39,8 @@ try {
     $weather_type->icon = $data["weather"][0]["weather_icon"];
 
     $repository = new WeatherRepository($config);
-    $repository->saveWeather($weather);
     $repository->saveWeatherType($weather_type);
+    $repository->saveWeather($weather);
     $repository->closeConnection();
 }
 catch (Exception $e) {
