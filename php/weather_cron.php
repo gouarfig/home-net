@@ -44,5 +44,6 @@ try {
     $repository->closeConnection();
 }
 catch (Exception $e) {
-    file_put_contents("weather_cron.log", $e->getMessage() . "\n", FILE_APPEND);
+    $message = date("r") . " - " . $e->getMessage() . "\n";
+    file_put_contents("weather_cron.log", $message, FILE_APPEND);
 }
