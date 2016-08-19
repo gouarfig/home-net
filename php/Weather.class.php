@@ -9,5 +9,6 @@ class Weather {
     public $wind_speed = 0;
     public $gust_speed = 0;
     public $wind_direction = 0;
-    public $recorded = null;
+    public $clouds = 0;
+    public $updated = null;
 }

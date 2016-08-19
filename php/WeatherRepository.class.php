@@ -33,6 +33,42 @@ class WeatherRepository {
         return $this->mysqli !== null;
     }
 
+    public function getWeather($fromDateTime = null, $toDateTime = null) {
+        if (!$this->connectionOpened()) $this->openConnection();
+        $data = array();
+        $query = "SELECT * FROM `weather`";
+        $parameters = array();
+        if (!is_null($fromDateTime)) {
+            $parameters[] = "updated>='" . $fromDateTime->format('Y-m-d H:i:sP') . "'";
+        }
+        if (!is_null($toDateTime)) {
+            $parameters[] = "updated<='" . $toDateTime->format('Y-m-d H:i:sP') . "'";
+        }
+        if (count($parameters) > 0) {
+            $query .= " WHERE " . implode(" AND ", $parameters);
+        }
+        $result = $this->mysqli->query($query);
+        if (!$result) throw new Exception("An mysqli exception occured: " . $this->mysqli->error);
+        if ($result->num_rows >0) {
+            while ($row = $result->fetch_assoc()) {
+                $weather = new Weather();
+                $weather->id = $row['id'];
+                $weather->weather_type_id = $row['weather_type_id'];
+                $weather->temperature = $row['temperature'];
+                $weather->pressure = $row['pressure'];
+                $weather->humidity = $row['humidity'];
+                $weather->wind_speed = $row['wind_speedid'];
+                $weather->gust_speed = $row['gust_speed'];
+                $weather->wind_direction = $row['wind_direction'];
+                $weather->clouds = $row['clouds'];
+                $weather->updated = $row['updated'];
+                $data[] = $weather;
+            }
+        }
+        $result->free();
+        return $data;
+    }
+
     public function saveWeather(Weather $weather) {
         if (!$this->connectionOpened()) $this->openConnection();
         $query = "INSERT IGNORE INTO `weather` ";
@@ -49,14 +85,14 @@ class WeatherRepository {
         $query .= "'" . $weather->updated->format('Y-m-d H:i:sP') . "'";
         $query .= ")";
         $result = $this->mysqli->query($query);
-        if (!$result) throw new Exception("And mysqli exception occured: " . $this->mysqli->error);
+        if (!$result) throw new Exception("An mysqli exception occured: " . $this->mysqli->error);
     }
 
     public function saveWeatherType(WeatherType $weather_type) {
         if (!$this->connectionOpened()) $this->openConnection();
         if (!is_numeric($weather_type->id) || ($weather_type->id <= 0)) throw new Exception("weather_type_id is invalid");
         $result = $this->mysqli->query("SELECT `weather_type_id` FROM `weather_type` WHERE `weather_type_id`={$weather_type->id}");
-        if (!$result) throw new Exception("And mysqli exception occured: " . $this->mysqli->error);
+        if (!$result) throw new Exception("An mysqli exception occured: " . $this->mysqli->error);
         if ($result->num_rows >0) return;
         $result->free();
 
@@ -69,6 +105,6 @@ class WeatherRepository {
         $query .= "'" . $this->mysqli->escape_string($weather_type->icon) . "' ";
         $query .= ")";
         $result = $this->mysqli->query($query);
-        if (!$result) throw new Exception("And mysqli exception occured: " . $this->mysqli->error);
+        if (!$result) throw new Exception("An mysqli exception occured: " . $this->mysqli->error);
     }
 }
