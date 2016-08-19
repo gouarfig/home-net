@@ -43,6 +43,15 @@ try {
     $repository->saveWeatherType($weather_type);
     $repository->saveWeather($weather);
     $repository->closeConnection();
+
+    $data = $weatherLoader->getForecast();
+
+    $apiResult = new ApiResult();
+    $apiResult->setData($data);
+    $apiResult->success();
+    $json = $apiResult->getJSON();
+
+    file_put_contents(__DIR__ . "/forecast.json", $json);
 }
 catch (Exception $e) {
     $message = date("r") . " - " . $e->getMessage() . "\n";
