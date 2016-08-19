@@ -55,7 +55,8 @@ class WeatherRepository {
     public function saveWeatherType(WeatherType $weather_type) {
         if (!$this->connectionOpened()) $this->openConnection();
         if (!is_numeric($weather_type->id) || ($weather_type->id <= 0)) throw new Exception("weather_type_id is invalid");
-        $result = $this->mysqli->query("SELECT FROM `weather_type` WHERE `weather_type_id`={$weather_type->id}");
+        $result = $this->mysqli->query("SELECT `weather_type_id` FROM `weather_type` WHERE `weather_type_id`={$weather_type->id}");
+        if (!$result) throw new Exception("And mysqli exception occured: " . $this->mysqli->error);
         if ($result->num_rows >0) return;
         $result->free();
 
