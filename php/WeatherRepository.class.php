@@ -35,7 +35,7 @@ class WeatherRepository {
 
     public function saveWeather(Weather $weather) {
         if (!$this->connectionOpened()) $this->openConnection();
-        $query = "INSERT INTO `weather` ";
+        $query = "INSERT IGNORE INTO `weather` ";
         $query .= "(`weather_type_id`, `temperature`, `pressure`, `humidity`, `wind_speed`, `gust_speed`, `wind_direction`, `clouds`, `updated`) ";
         $query .= "VALUES (";
         $query .= "{$weather->weather_type_id}, ";
