@@ -2,6 +2,7 @@
 
 require_once "Config.class.php";
 require_once "Weather.class.php";
+require_once "WeatherType.class.php";
 
 class WeatherRepository {
     private $config;

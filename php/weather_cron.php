@@ -2,6 +2,7 @@
 
 require_once "Config.class.php";
 require_once "Weather.class.php";
+require_once "WeatherType.class.php";
 require_once "WeatherLoader.class.php";
 require_once "WeatherRepository.class.php";
 require_once "ApiResult.class.php";
