@@ -40,6 +40,7 @@ try {
 
     $repository = new WeatherRepository($config);
     $repository->saveWeather($weather);
+    $repository->saveWeatherType($weather_type);
     $repository->closeConnection();
 }
 catch (Exception $e) {
