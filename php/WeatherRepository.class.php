@@ -50,7 +50,6 @@ class WeatherRepository {
         $query .= ")";
         $result = $this->mysqli->query($query);
         if (!$result) throw new Exception("And mysqli exception occured: " . $this->mysqli->error);
-        $result->free();
     }
 
     public function saveWeatherType(WeatherType $weather_type) {
@@ -70,6 +69,5 @@ class WeatherRepository {
         $query .= ")";
         $result = $this->mysqli->query($query);
         if (!$result) throw new Exception("And mysqli exception occured: " . $this->mysqli->error);
-        $result->free();
     }
 }
