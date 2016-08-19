@@ -1,5 +1,6 @@
 <?php
 
+set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__);
 require_once "Config.class.php";
 require_once "Weather.class.php";
 require_once "WeatherType.class.php";
@@ -19,7 +20,7 @@ try {
     $apiResult->success();
     $json = $apiResult->getJSON();
 
-    file_put_contents("weather.json", $json);
+    file_put_contents(__DIR__ . "/weather.json", $json);
 
     $weather = new Weather();
     $weather->weather_type_id = $data["weather"][0]["id"];
@@ -45,5 +46,5 @@ try {
 }
 catch (Exception $e) {
     $message = date("r") . " - " . $e->getMessage() . "\n";
-    file_put_contents("weather_cron.log", $message, FILE_APPEND);
+    file_put_contents(__DIR__ . "/weather_cron.log", $message, FILE_APPEND);
 }
