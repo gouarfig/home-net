@@ -1,4 +1,4 @@
-import { IWeather, IMain, IWind, IClouds, IPrecipitation, IWeatherDateTime, IWeatherData } from '../app/weather.models'
+import { IWeather, IMain, IWind, IClouds, IPrecipitation, IWeatherDateTime, IWeatherData } from '../app/weather.forecast.models'
 
 describe('Weather Models', () => {
     it('IWeather can be loaded from an anonymous object', () => {

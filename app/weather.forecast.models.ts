@@ -48,3 +48,20 @@ export interface IWeatherData {
     sunrise: IWeatherDateTime;
     sunset: IWeatherDateTime;
 }
+
+export interface IForecastData {
+    town_id: number;
+    town_name: string;
+    timezone: number;
+    list: IForecastItem[];
+}
+
+export interface IForecastItem {
+    weather: IWeather[];
+    main: IMain;
+    wind: IWind;
+    rain: IPrecipitation;
+    snow: IPrecipitation;
+    clouds: IClouds;
+    updated: IWeatherDateTime;
+}

@@ -1,4 +1,4 @@
-import { IWeather, IMain, IWind, IClouds, IPrecipitation, IWeatherDateTime, IWeatherData } from '../app/weather.models';
+import { IWeather, IMain, IWind, IClouds, IPrecipitation, IWeatherDateTime, IWeatherData } from '../app/weather.forecast.models';
 import { WeatherService } from '../app/weather.service';
 
 describe('Weather Service', () => {

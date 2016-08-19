@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IWeather, IMain, IWind, IClouds, IPrecipitation, IWeatherDateTime, IWeatherData } from './weather.models';
+import { IWeatherData } from './weather.forecast.models';
 import { Messages } from './messages';
 import { WeatherService } from './weather.service';
 

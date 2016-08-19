@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { IForecastData } from './forecast.models';
+import { IForecastData } from './weather.forecast.models';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
