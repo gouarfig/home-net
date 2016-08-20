@@ -48,7 +48,7 @@ class WeatherRepository {
             $query .= " WHERE " . implode(" AND ", $parameters);
         }
         $result = $this->mysqli->query($query);
-        if (!$result) throw new Exception("An mysqli exception occured: " . $this->mysqli->error);
+        if (!$result) throw new Exception("An mysqli exception occured in WeatherRepository->getWeather: " . $this->mysqli->error);
         if ($result->num_rows >0) {
             while ($row = $result->fetch_assoc()) {
                 $weather = new Weather();
@@ -76,14 +76,14 @@ class WeatherRepository {
         $query .= "'" . $weather->updated->format('Y-m-d H:i:sP') . "'";
         $query .= ")";
         $result = $this->mysqli->query($query);
-        if (!$result) throw new Exception("An mysqli exception occured: " . $this->mysqli->error);
+        if (!$result) throw new Exception("An mysqli exception occured in WeatherRepository->saveWeather: " . $this->mysqli->error);
     }
 
     public function saveWeatherType(WeatherType $weather_type) {
         if (!$this->connectionOpened()) $this->openConnection();
         if (!is_numeric($weather_type->id) || ($weather_type->id <= 0)) throw new Exception("weather_type_id is invalid");
         $result = $this->mysqli->query("SELECT `weather_type_id` FROM `weather_type` WHERE `weather_type_id`={$weather_type->id}");
-        if (!$result) throw new Exception("An mysqli exception occured: " . $this->mysqli->error);
+        if (!$result) throw new Exception("An mysqli exception occured in WeatherRepository->saveWeatherType: " . $this->mysqli->error);
         if ($result->num_rows >0) return;
         $result->free();
 
@@ -96,6 +96,6 @@ class WeatherRepository {
         $query .= "'" . $this->mysqli->escape_string($weather_type->icon) . "' ";
         $query .= ")";
         $result = $this->mysqli->query($query);
-        if (!$result) throw new Exception("An mysqli exception occured: " . $this->mysqli->error);
+        if (!$result) throw new Exception("An mysqli exception occured in WeatherRepository->saveWeatherType: " . $this->mysqli->error);
     }
 }
