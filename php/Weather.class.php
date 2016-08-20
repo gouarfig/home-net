@@ -18,7 +18,7 @@ class Weather {
         $this->temperature = $row['temperature'];
         $this->pressure = $row['pressure'];
         $this->humidity = $row['humidity'];
-        $this->wind_speed = $row['wind_speedid'];
+        $this->wind_speed = $row['wind_speed'];
         $this->gust_speed = $row['gust_speed'];
         $this->wind_direction = $row['wind_direction'];
         $this->clouds = $row['clouds'];
