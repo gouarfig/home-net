@@ -1,9 +1,7 @@
 #!/bin/sh
 
 PHP=/usr/bin/php
+PHPUNIT=phpunit.phar
 
 echo "Running in $PWD"
-curl https://phar.phpunit.de/phpunit-4.8.27.phar -o phpunit.phar
-"$PHP" --version
-"$PHP" phpunit.phar --self-update
-"$PHP" phpunit.phar --version
+"$PHP" "$PHPUNIT" --verbose *Test.php
