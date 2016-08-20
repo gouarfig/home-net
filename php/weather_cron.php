@@ -42,7 +42,6 @@ try {
     $repository = new WeatherRepository($config);
     $repository->saveWeatherType($weather_type);
     $repository->saveWeather($weather);
-    $repository->closeConnection();
 
     $data = $weatherLoader->getForecast();
 
@@ -62,6 +61,8 @@ try {
     $json = $apiResult->getJSON();
 
     file_put_contents(__DIR__ . "/24h.json", $json);
+
+    $repository->closeConnection();
 }
 catch (Exception $e) {
     $message = date("r") . " - " . $e->getMessage() . "\n";

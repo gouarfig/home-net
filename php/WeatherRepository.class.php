@@ -27,6 +27,7 @@ class WeatherRepository {
 
     public function closeConnection() {
         $this->mysqli->close();
+        $this->mysqli = null;
     }
 
     public function connectionOpened() {
