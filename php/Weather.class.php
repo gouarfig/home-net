@@ -11,6 +11,7 @@ class Weather {
     public $wind_direction = 0;
     public $clouds = 0;
     public $updated = null;
+    public $timestamp = 0;
 
     public function loadFromArray($row) {
         $this->id = $row['id'];
@@ -23,5 +24,6 @@ class Weather {
         $this->wind_direction = $row['wind_direction'];
         $this->clouds = $row['clouds'];
         $this->updated = $row['updated'];
+        $this->timestamp = strtotime($row['updated']);
     }
 }
