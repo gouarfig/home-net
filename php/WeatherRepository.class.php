@@ -61,19 +61,18 @@ class WeatherRepository {
     }
 
     public function saveWeather(Weather $weather) {
-        var_dump($weather);
         if (!$this->connectionOpened()) $this->openConnection();
         $query = "INSERT IGNORE INTO `weather` ";
         $query .= "(`weather_type_id`, `temperature`, `pressure`, `humidity`, `wind_speed`, `gust_speed`, `wind_direction`, `clouds`, `updated`) ";
         $query .= "VALUES (";
-        $query .= is_numeric($weather->weather_type_id) ? $weather->weather_type_id : 'NULL' . ", ";
-        $query .= is_numeric($weather->temperature) ? $weather->temperature : 'NULL' . ", ";
-        $query .= is_numeric($weather->pressure) ? $weather->pressure : 'NULL' . ", ";
-        $query .= is_numeric($weather->humidity) ? $weather->humidity : 'NULL' . ", ";
-        $query .= is_numeric($weather->wind_speed) ? $weather->wind_speed : 'NULL' . ", ";
-        $query .= is_numeric($weather->gust_speed) ? $weather->gust_speed : 'NULL' . ", ";
-        $query .= is_numeric($weather->wind_direction) ? $weather->wind_direction : 'NULL' . ", ";
-        $query .= is_numeric($weather->clouds) ? $weather->clouds : 'NULL' . ", ";
+        $query .= (is_numeric($weather->weather_type_id) ? $weather->weather_type_id : 'NULL') . ", ";
+        $query .= (is_numeric($weather->temperature) ? $weather->temperature : 'NULL') . ", ";
+        $query .= (is_numeric($weather->pressure) ? $weather->pressure : 'NULL') . ", ";
+        $query .= (is_numeric($weather->humidity) ? $weather->humidity : 'NULL') . ", ";
+        $query .= (is_numeric($weather->wind_speed) ? $weather->wind_speed : 'NULL') . ", ";
+        $query .= (is_numeric($weather->gust_speed) ? $weather->gust_speed : 'NULL') . ", ";
+        $query .= (is_numeric($weather->wind_direction) ? $weather->wind_direction : 'NULL') . ", ";
+        $query .= (is_numeric($weather->clouds) ? $weather->clouds : 'NULL') . ", ";
         $query .= "'" . $weather->updated->format('Y-m-d H:i:sP') . "'";
         $query .= ")";
         $result = $this->mysqli->query($query);
