@@ -61,6 +61,7 @@ class WeatherRepository {
     }
 
     public function saveWeather(Weather $weather) {
+        var_dump($weather);
         if (!$this->connectionOpened()) $this->openConnection();
         $query = "INSERT IGNORE INTO `weather` ";
         $query .= "(`weather_type_id`, `temperature`, `pressure`, `humidity`, `wind_speed`, `gust_speed`, `wind_direction`, `clouds`, `updated`) ";
