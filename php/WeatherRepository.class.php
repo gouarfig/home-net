@@ -52,16 +52,7 @@ class WeatherRepository {
         if ($result->num_rows >0) {
             while ($row = $result->fetch_assoc()) {
                 $weather = new Weather();
-                $weather->id = $row['id'];
-                $weather->weather_type_id = $row['weather_type_id'];
-                $weather->temperature = $row['temperature'];
-                $weather->pressure = $row['pressure'];
-                $weather->humidity = $row['humidity'];
-                $weather->wind_speed = $row['wind_speedid'];
-                $weather->gust_speed = $row['gust_speed'];
-                $weather->wind_direction = $row['wind_direction'];
-                $weather->clouds = $row['clouds'];
-                $weather->updated = $row['updated'];
+                $weather->loadFromArray($row);
                 $data[] = $weather;
             }
         }
