@@ -52,6 +52,16 @@ try {
     $json = $apiResult->getJSON();
 
     file_put_contents(__DIR__ . "/forecast.json", $json);
+
+    $minus24hours = new DateTime("@" . (time() - 86400));
+    $data = $repository->getWeather(minus24hours);
+
+    $apiResult = new ApiResult();
+    $apiResult->setData($data);
+    $apiResult->success();
+    $json = $apiResult->getJSON();
+
+    file_put_contents(__DIR__ . "/24h.json", $json);
 }
 catch (Exception $e) {
     $message = date("r") . " - " . $e->getMessage() . "\n";
