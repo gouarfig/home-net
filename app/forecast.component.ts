@@ -4,7 +4,7 @@ import { Messages } from './messages';
 import { ForecastService } from './forecast.service';
 
 @Component({
-    moduleId: module.id,
+    //moduleId: module.id,
     selector: 'forecast',
     templateUrl: 'app/forecast.component.html',
     providers: [ForecastService],

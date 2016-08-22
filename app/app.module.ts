@@ -13,6 +13,8 @@ import { WeatherPageComponent } from './weatherpage.component';
 import { ForecastPageComponent } from './forecastpage.component';
 import { AboutComponent } from './about.component';
 
+import { AppConfiguration } from './app.config.ts';
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -28,7 +30,8 @@ import { AboutComponent } from './about.component';
         AboutComponent,
     ],
     providers: [
-        WeatherService
+        WeatherService,
+        ForecastService
     ],
     bootstrap: [
         AppComponent
