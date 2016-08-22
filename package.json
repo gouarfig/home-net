@@ -46,6 +46,7 @@
     "bootstrap": "^3.3.6",
     "highcharts": "~4.2.6",
     "angular2-highcharts": "~0.1.1",
+    "font-awesome": "*",
     "weathericons": "*"
   },
   "devDependencies": {
