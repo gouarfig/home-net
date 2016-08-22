@@ -19,7 +19,11 @@
     "phpunit": "cd ./php/tests && ./run_tests.sh",
     "install:composer": "cd ./php/tests && ./install_composer.sh",
     "clean:js": "rm app/*.js & rm app/*.js.map",
-    "setowner": "chown -R www-data.www-data ../homenest"
+    "setowner": "chown -R www-data.www-data ../homenest",
+    "clean": "rm -rf dist && mkdir dist",
+    "build": "npm run clean && tsc",
+    "build_prod": "npm run build && browserify -s main app/main.js > dist/bundle.js && npm run minify",
+    "minify": "uglifyjs dist/bundle.js --screw-ie8 --compress --mangle --output dist/bundle.min.js"
   },
   "license": "ISC",
   "dependencies": {
@@ -37,7 +41,7 @@
     "core-js": "^2.4.0",
     "reflect-metadata": "^0.1.3",
     "rxjs": "~5.0.0-beta.6",
-    "zone.js": "^0.6.12",
+    "zone.js": "^0.6.13",
     "angular2-in-memory-web-api": "0.0.15",
     "bootstrap": "^3.3.6",
     "highcharts": "~4.2.6",
@@ -49,6 +53,8 @@
     "lite-server": "^2.2.0",
     "typescript": "^1.8.10",
     "typings":"^1.0.4",
-    "jasmine-core": "~2.4.1"
+    "jasmine-core": "~2.4.1",
+    "browserify": "^13.1.0",
+    "uglifyjs": "^2.4.10"
   }
 }

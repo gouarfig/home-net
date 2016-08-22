@@ -46,3 +46,4 @@ php/Config.class.php
 php/*.json
 php/**/*.phar
 php/tests/bin
+dist
