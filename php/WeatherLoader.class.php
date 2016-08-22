@@ -27,7 +27,7 @@ class WeatherLoader {
     }
 
     private function validateJsonData($input) {
-        if ($input["cod"] !== 200) {
+        if ($input["cod"] != 200) {
             if (isset($input['cod']) || isset($input['message'])) {
                 throw new Exception("HTTP error {$input['cod']}: {$input['message']}", $input["cod"]);
             } else {
