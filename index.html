@@ -32,7 +32,7 @@
     <script>
       if (typeof System === undefined) {
         var element = document.getElementsByTagName('home-net-app')[0];
-        element.innerHTML("ERROR: System class is not defined. Are the dependencies loaded on the server?");
+        element.innerHTML = "ERROR: System class is not defined. Are the dependencies loaded on the server?";
       }
       System.import('app').catch(function(err){ console.error(err); });
     </script>
