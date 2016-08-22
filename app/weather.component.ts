@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { IWeatherData } from './weather.forecast.models';
 import { Messages } from './messages';
 import { WeatherService } from './weather.service';
+import { ErrorComponent } from './error.component';
 
 @Component({
     //moduleId: module.id,
     selector: 'weather',
     templateUrl: 'app/weather.component.html',
-    providers: [WeatherService],
+    providers: [WeatherService, ErrorComponent],
 })
 export class WeatherComponent implements OnInit {
     private data: IWeatherData;
