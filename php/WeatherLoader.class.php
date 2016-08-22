@@ -10,6 +10,9 @@ class WeatherLoader {
 
     private function getRawJSON($url) {
         $ch = curl_init();
+        curl_setopt($ch, CURLOPT_FAILONERROR, true);
+        curl_setopt($ch, CURLOPT_AUTOREFERER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_URL, $url);
         $result = curl_exec($ch);
@@ -23,18 +26,29 @@ class WeatherLoader {
         return $array;
     }
 
-    private function validateWeatherData($input) {
+    private function validateJsonData($input) {
         if ($input["cod"] !== 200) {
-            throw new Exception("HTTP error {$input['cod']}: {$input['message']}", $input["cod"]);
+            if (isset($input['cod']) || isset($input['message'])) {
+                throw new Exception("HTTP error {$input['cod']}: {$input['message']}", $input["cod"]);
+            } else {
+                throw new Exception("Unformatted data: " . json_encode($input));
+            }
         }
+    }
+
+    private function validateWeatherData($input) {
+        $this->validateJsonData($input);
+
         if ($input["id"] !== $this->config->town_id) {
-            throw new Exception("Invalid JSON data (id={$input['id']})");
+            throw new Exception("Invalid JSON data: " . json_encode($input));
         }
     }
 
     private function validateForecastData($input) {
+        $this->validateJsonData($input);
+
         if ($input["city"]["id"] !== $this->config->town_id) {
-            throw new Exception("Invalid JSON data (id={$input["city"]['id']})");
+            throw new Exception("Invalid JSON data: " . json_encode($input));
         }
     }
 
