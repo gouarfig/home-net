@@ -19,7 +19,7 @@
     "phpunit": "cd ./php/tests && ./run_tests.sh",
     "install:composer": "cd ./php/tests && ./install_composer.sh",
     "clean:js": "rm app/*.js & rm app/*.js.map",
-    "setowner": "chown -R www-data.www-data *"
+    "setowner": "chown -R www-data.www-data ../homenest"
   },
   "license": "ISC",
   "dependencies": {
