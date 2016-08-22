@@ -141,6 +141,11 @@ class WeatherLoader {
                 $weather_icon = "{$day_night}-showers";
                 break;
 
+            case 701:
+            case 741:
+                $weather_icon = "{$day_night}-fog";
+                break;
+            
             case 800:   // clear sky
                 if ($day_night == "day") $weather_icon = "day-sunny";
                 else if ($day_night == "night") $weather_icon = "night-clear";
