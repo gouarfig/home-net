@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { IWeatherData } from './weather.forecast.models';
 import { Messages } from './messages';
 import { WeatherService } from './weather.service';
@@ -14,6 +14,7 @@ export class WeatherComponent implements OnInit {
     private data: IWeatherData;
     private messages: Messages = new Messages();
     private me = this;
+    @ViewChild(ErrorComponent) errorComponent: ErrorComponent;
 
     constructor(private weatherService: WeatherService) {
     }
@@ -30,6 +31,7 @@ export class WeatherComponent implements OnInit {
     private errorEvent(error: any) {
         this.messages.error = <any>error;
         console.error(this.messages.error);
+        this.errorComponent.setError(this.messages.error);
     }
 
     private completeEvent() {

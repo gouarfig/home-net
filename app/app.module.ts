@@ -8,7 +8,7 @@ import { WeatherService } from './weather.service';
 import { ForecastService } from './forecast.service';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home.component';
+import { DashboardComponent } from './dashboard.component';
 import { WeatherPageComponent } from './weatherpage.component';
 import { ForecastPageComponent } from './forecastpage.component';
 import { AboutComponent } from './about.component';
@@ -25,7 +25,7 @@ import { AppConfiguration } from './app.config.ts';
     ],
     declarations: [
         AppComponent,
-        HomeComponent,
+        DashboardComponent,
         WeatherPageComponent,
         ForecastPageComponent,
         AboutComponent,

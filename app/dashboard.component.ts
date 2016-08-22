@@ -3,10 +3,10 @@ import { SimpleChartExample } from './simple-chart-example.component';
 import { StockChartExample } from './stock-chart-example.component';
 
 @Component({
-  selector: 'home',
-  templateUrl: 'app/home.component.html',
+  selector: 'dashboard',
+  templateUrl: 'app/dashboard.component.html',
   directives: [
     SimpleChartExample,
     StockChartExample],
 })
-export class HomeComponent { }
+export class DashboardComponent { }

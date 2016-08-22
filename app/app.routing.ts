@@ -1,5 +1,5 @@
 import { Routes, RouterModule }  from '@angular/router';
-import { HomeComponent } from './home.component';
+import { DashboardComponent } from './dashboard.component';
 import { WeatherPageComponent } from './weatherpage.component';
 import { ForecastPageComponent } from './forecastpage.component';
 import { AboutComponent } from './about.component';
@@ -7,12 +7,12 @@ import { AboutComponent } from './about.component';
 const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/dashboard',
     pathMatch: 'full'
   },
   {
-    path: 'home',
-    component: HomeComponent
+    path: 'dashboard',
+    component: DashboardComponent
   },
   {
     path: 'weather',
