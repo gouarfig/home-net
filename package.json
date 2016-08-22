@@ -22,8 +22,10 @@
     "setowner": "chown -R www-data.www-data ../homenest",
     "clean": "rm -rf dist && mkdir dist",
     "build": "npm run clean && tsc",
-    "build_prod": "npm run build && browserify -s main app/main.js > dist/bundle.js && npm run minify",
-    "minify": "uglifyjs dist/bundle.js --screw-ie8 --compress --mangle --output dist/bundle.min.js"
+    "browserify": "npm run build && browserify -s main app/main.js > dist/bundle.js && npm run minify",
+    "minify": "uglifyjs dist/bundle.js --screw-ie8 --compress --mangle --output dist/bundle.min.js",
+    "install_prod": "unlink index.html && ln -s index.html index_prod.html",
+    "build_prod": "npm run build && npm run browserify && npm run minify && npm run install_prod"
   },
   "license": "ISC",
   "dependencies": {
