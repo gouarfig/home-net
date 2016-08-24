@@ -18,9 +18,9 @@
     "install:phpunit": "cd ./php/tests && ./install_phpunit.sh",
     "phpunit": "cd ./php/tests && ./run_tests.sh",
     "install:composer": "cd ./php/tests && ./install_composer.sh",
-    "clean:js": "rm app/*.js & rm app/*.js.map",
+    "clean:js": "rimraf app/*.js & rimraf app/*.js.map",
     "setowner": "chown -R www-data.www-data ../homenest",
-    "clean": "rm -rf dist && mkdir dist",
+    "clean": "rimraf dist",
     "build": "npm run clean && tsc",
     "browserify": "browserify -s main app/main.js > dist/bundle.js",
     "minify": "uglifyjs dist/bundle.js --screw-ie8 --compress --mangle --output dist/bundle.min.js",
@@ -51,12 +51,14 @@
     "weathericons": "*"
   },
   "devDependencies": {
+    "rimraf": "^2.5.4",
     "concurrently": "^2.0.0",
     "lite-server": "^2.2.0",
     "typescript": "^1.8.10",
     "typings":"^1.0.4",
     "jasmine-core": "~2.4.1",
-    "browserify": "^13.1.0",
-    "uglifyjs": "^2.4.10"
+    "webpack": "^1.13.0",
+    "webpack-dev-server": "^1.14.0",
+    "webpack-merge": "^0.14.0"
   }
 }
