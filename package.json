@@ -57,6 +57,10 @@
     "typescript": "^1.8.10",
     "typings":"^1.0.4",
     "jasmine-core": "~2.4.1",
+    // Webpack
+    "angular2-template-loader": "^0.4.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "html-webpack-plugin": "^2.15.0",
     "webpack": "^1.13.0",
     "webpack-dev-server": "^1.14.0",
     "webpack-merge": "^0.14.0"
