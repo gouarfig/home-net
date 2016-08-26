@@ -24,7 +24,9 @@
     "build": "npm run clean && tsc",
     "browserify": "browserify -s main app/main.js > dist/bundle.js",
     "minify": "uglifyjs dist/bundle.js --screw-ie8 --compress --mangle --output dist/bundle.min.js",
-    "build_prod": "npm run build && npm run browserify && npm run minify"
+    "build_prod": "npm run build && npm run browserify && npm run minify",
+    "webpack": "webpack-dev-server --inline --progress --port 8080",
+    "build_webpack": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail"
   },
   "license": "ISC",
   "dependencies": {
@@ -57,9 +59,17 @@
     "typescript": "^1.8.10",
     "typings":"^1.0.4",
     "jasmine-core": "~2.4.1",
+    
     "angular2-template-loader": "^0.4.0",
+    "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.8.5",
+    "html-loader": "^0.4.3",
     "html-webpack-plugin": "^2.15.0",
+    "null-loader": "^0.1.1",
+    "raw-loader": "^0.5.1",
+    "style-loader": "^0.13.1",
+    "ts-loader": "^0.8.1",
     "webpack": "^1.13.0",
     "webpack-dev-server": "^1.14.0",
     "webpack-merge": "^0.14.0"
