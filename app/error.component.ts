@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'error',
-    templateUrl: 'app/error.component.html',
+    templateUrl: 'error.component.html',
     providers: [ErrorComponent]
 })
 export class ErrorComponent {

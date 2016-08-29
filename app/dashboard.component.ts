@@ -4,7 +4,7 @@ import { StockChartExample } from './stock-chart-example.component';
 
 @Component({
   selector: 'dashboard',
-  templateUrl: 'app/dashboard.component.html',
+  templateUrl: 'dashboard.component.html',
   directives: [
     SimpleChartExample,
     StockChartExample],

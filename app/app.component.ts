@@ -6,7 +6,7 @@ import { AppConfiguration } from './app.config';
 
 @Component({
   selector: 'home-net-app',
-  templateUrl: 'app/app.component.html',
+  templateUrl: 'app.component.html',
   directives: [ROUTER_DIRECTIVES, NavigationComponent],
   providers: [AppConfiguration]
 })

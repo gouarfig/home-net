@@ -6,7 +6,7 @@ import { ForecastService } from './forecast.service';
 @Component({
     //moduleId: module.id,
     selector: 'forecast',
-    templateUrl: 'app/forecast.component.html',
+    templateUrl: 'forecast.component.html',
     providers: [ForecastService],
 })
 export class ForecastComponent implements OnInit {

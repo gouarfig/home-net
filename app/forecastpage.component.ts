@@ -3,7 +3,7 @@ import { ForecastComponent } from './forecast.component';
 
 @Component({
   selector: 'forecastpage',
-  templateUrl: 'app/forecastpage.component.html',
+  templateUrl: 'forecastpage.component.html',
   directives: [
     ForecastComponent
     ]

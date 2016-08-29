@@ -7,7 +7,7 @@ import { ErrorComponent } from './error.component';
 @Component({
     //moduleId: module.id,
     selector: 'weather',
-    templateUrl: 'app/weather.component.html',
+    templateUrl: 'weather.component.html',
     providers: [WeatherService, ErrorComponent],
 })
 export class WeatherComponent implements OnInit {

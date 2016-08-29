@@ -4,7 +4,7 @@ import { WeatherHistory } from './history.component';
 
 @Component({
   selector: 'weatherpage',
-  templateUrl: 'app/weatherpage.component.html',
+  templateUrl: 'weatherpage.component.html',
   directives: [
     WeatherComponent,
     WeatherHistory
