@@ -2,6 +2,10 @@
 
 require_once "Config.class.php";
 
+if (!isset($_GET['key']) || !is_string($_GET['key'])) {
+    exit("Incorrect parameters");
+}
+
 $config = new Config();
 $mysqli = new mysqli(
             $config->db_server,
@@ -10,40 +14,47 @@ $mysqli = new mysqli(
             $config->db_name
             );
 if ($mysqli->connect_errno) {
-	echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+	exit("Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
 }
 
-$query = "SELECT * FROM sensors WHERE key='" . $mysqli->escape_string($_GET['key']) . "'";
+$fields = array();
 
-$str = sha1_file(__FILE__);
-echo count($str);
-echo "<br />";
-echo $str;
+$query = "SELECT * FROM `sensors` WHERE `key`='" . $mysqli->escape_string($_GET['key']) . "' LIMIT 1";
+$sensors = $mysqli->query($query);
+if (!$sensors) {
+    exit("Query failed: (" . $mysqli->errno . ") " . $mysqli->error);
+}
+if ($sensors->num_rows == 0) {
+    exit("Invalid key");
+}
+$definition = $sensors->fetch_assoc();
+$table_name = $definition['name'];
+foreach ($definition as $key => $value) {
+    if ((strpos($key, "def_") === 0) && is_string($value)) {
+        $fields[substr($key, 4)] = $value;
+    }
+}
+$sensors->free();
+unset($query);
+unset($sensors);
 
-if (!isset($_GET['pi_temperature']) || !is_numeric($_GET['pi_temperature'])) $_GET['pi_temperature'] = 0;
-if (!isset($_GET['sensor1_temperature']) || !is_numeric($_GET['sensor1_temperature'])) $_GET['sensor1_temperature'] = 0;
-if (!isset($_GET['sensor1_humidity']) || !is_numeric($_GET['sensor1_humidity'])) $_GET['sensor1_humidity'] = 0;
-if (!isset($_GET['sensor2_temperature']) || !is_numeric($_GET['sensor2_temperature'])) $_GET['sensor2_temperature'] = 0;
-if (!isset($_GET['sensor2_pressure']) || !is_numeric($_GET['sensor2_pressure'])) $_GET['sensor2_pressure'] = 0;
-
-if ($_GET['pi_temperature'] > 0) {
-	if (!$mysqli->query("INSERT INTO sensor_0 (recorded, temperature) VALUES (UTC_TIMESTAMP(), {$_GET['pi_temperature']})")) {
-		echo "Query failed: (" . $mysqli->errno . ") " . $mysqli->error;
-	}
+$record= array();
+foreach ($fields as $key => $value) {
+    if (isset($_GET[$key]) && is_numeric($_GET[$key])) {
+        $record[$value] = $_GET[$key];
+    }
+}
+if (count($record) == 0) {
+    exit("Invalid parameters");
 }
 
-if (($_GET['sensor1_temperature'] > 0) || ($_GET['sensor1_humidity'] > 0)) {
-	if (!$mysqli->query("INSERT INTO sensor_1 (recorded, temperature, relative_humidity) VALUES (UTC_TIMESTAMP(), {$_GET['sensor1_temperature']}, {$_GET['sensor1_humidity']})")) {
-		echo "Query failed: (" . $mysqli->errno . ") " . $mysqli->error;
-	}
-}
+$query = "INSERT INTO `{$table_name}` (recorded, ";
+$query .= implode(", ", array_keys($record));
+$query .= ") VALUES (UTC_TIMESTAMP(), ";
+$query .= implode(", ", array_values($record));
+$query .= ")";
 
-if (($_GET['sensor2_temperature'] > 0) || ($_GET['sensor2_pressure'] > 0)) {
-	if (!$mysqli->query("INSERT INTO sensor_2 (recorded, temperature, atmospheric_pressure) VALUES (UTC_TIMESTAMP(), {$_GET['sensor2_temperature']}, {$_GET['sensor2_pressure']})")) {
-		echo "Query failed: (" . $mysqli->errno . ") " . $mysqli->error;
-	}
-}
 
-//$sql = "INSERT INTO `sensor_0` (recorded, temperature) SELECT recorded, pi_temperature FROM `log` WHERE pi_temperature>0";
-//$sql = "INSERT INTO `sensor_1` (recorded, temperature, relative_humidity) SELECT recorded, sensor_temperature, relative_humidity FROM `log` WHERE (sensor_temperature>0 OR relative_humidity>0)";
-//$sql = "INSERT INTO `sensor_2` (recorded, temperature, atmospheric_pressure) SELECT recorded, sensor2_temperature, sensor2_atmospheric_pressure FROM `log` WHERE (sensor2_temperature>0 OR sensor2_atmospheric_pressure>0)";
+if (!$mysqli->query($query)) {
+    exit("Query failed: (" . $mysqli->errno . ") " . $mysqli->error);
+}
