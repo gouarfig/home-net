@@ -4,10 +4,10 @@ require_once "Config.class.php";
 
 $config = new Config();
 $mysqli = new mysqli(
-            $this->config->db_server,
-            $this->config->db_user,
-            $this->config->db_password,
-            $this->config->db_name
+            $config->db_server,
+            $config->db_user,
+            $config->db_password,
+            $config->db_name
             );
 if ($mysqli->connect_errno) {
 	echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
@@ -15,7 +15,10 @@ if ($mysqli->connect_errno) {
 
 $query = "SELECT * FROM sensors WHERE key='" . $mysqli->escape_string($_GET['key']) . "'";
 
-echo sha1_file(__FILE__);
+$str = sha1_file(__FILE__);
+echo count($str);
+echo "<br />";
+echo $str;
 
 if (!isset($_GET['pi_temperature']) || !is_numeric($_GET['pi_temperature'])) $_GET['pi_temperature'] = 0;
 if (!isset($_GET['sensor1_temperature']) || !is_numeric($_GET['sensor1_temperature'])) $_GET['sensor1_temperature'] = 0;
