@@ -1,11 +1,60 @@
+-- phpMyAdmin SQL Dump
+-- version 3.4.11.1deb2+deb7u5
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Sep 02, 2016 at 07:10 PM
+-- Server version: 5.5.50
+-- PHP Version: 5.4.45-0+deb7u4
+
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+--
+-- Database: `homenet`
+--
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `envirophat`
+--
+
+CREATE TABLE IF NOT EXISTS `envirophat` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `recorded` datetime NOT NULL,
+  `pi_temperature` decimal(5,2) NOT NULL,
+  `sensor_temperature` decimal(5,2) NOT NULL,
+  `sensor_pressure` decimal(6,2) unsigned NOT NULL,
+  `sensor_light` smallint(6) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sensors`
+--
+
+CREATE TABLE IF NOT EXISTS `sensors` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `key` varchar(40) DEFAULT NULL,
+  `name` varchar(20) DEFAULT NULL,
+  `description` varchar(200) DEFAULT NULL,
+  `def_pi_temperature` varchar(30) DEFAULT NULL,
+  `def_sensor_temperature` varchar(30) DEFAULT NULL,
+  `def_sensor_humidity` varchar(30) DEFAULT NULL,
+  `def_sensor_pressure` varchar(30) DEFAULT NULL,
+  `def_sensor_light` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `key` (`key`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `weather`
+--
 
 CREATE TABLE IF NOT EXISTS `weather` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -14,13 +63,19 @@ CREATE TABLE IF NOT EXISTS `weather` (
   `pressure` smallint(5) unsigned NOT NULL,
   `humidity` smallint(5) unsigned NOT NULL,
   `wind_speed` decimal(5,2) unsigned NOT NULL,
-  `gust_speed` decimal(5,2) unsigned NOT NULL,
+  `gust_speed` decimal(5,2) unsigned DEFAULT NULL,
   `wind_direction` smallint(5) unsigned NOT NULL,
   `clouds` smallint(5) unsigned NOT NULL,
   `updated` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `recorded` (`updated`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `weather_type`
+--
 
 CREATE TABLE IF NOT EXISTS `weather_type` (
   `weather_type_id` smallint(5) unsigned NOT NULL,
@@ -29,7 +84,3 @@ CREATE TABLE IF NOT EXISTS `weather_type` (
   `icon` varchar(20) NOT NULL,
   PRIMARY KEY (`weather_type_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
