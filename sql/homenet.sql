@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 02, 2016 at 07:10 PM
+-- Generation Time: Sep 06, 2016 at 09:19 PM
 -- Server version: 5.5.50
 -- PHP Version: 5.4.45-0+deb7u4
 
@@ -23,10 +23,27 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `envirophat` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `recorded` datetime NOT NULL,
-  `pi_temperature` decimal(5,2) NOT NULL,
-  `sensor_temperature` decimal(5,2) NOT NULL,
-  `sensor_pressure` decimal(6,2) unsigned NOT NULL,
+  `pi_temperature` decimal(5,2) DEFAULT NULL,
+  `sensor_temperature` decimal(5,2) DEFAULT NULL,
+  `sensor_pressure` decimal(6,2) unsigned DEFAULT NULL,
   `sensor_light` smallint(6) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `prototype1`
+--
+
+CREATE TABLE IF NOT EXISTS `prototype1` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `recorded` datetime NOT NULL,
+  `pi_temperature` decimal(5,2) DEFAULT NULL,
+  `sensor_temperature1` decimal(5,2) DEFAULT NULL,
+  `sensor_humidity` decimal(5,2) DEFAULT NULL,
+  `sensor_temperature2` decimal(5,2) DEFAULT NULL,
+  `sensor_pressure` decimal(6,2) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
@@ -42,10 +59,17 @@ CREATE TABLE IF NOT EXISTS `sensors` (
   `name` varchar(20) DEFAULT NULL,
   `description` varchar(200) DEFAULT NULL,
   `def_pi_temperature` varchar(30) DEFAULT NULL,
-  `def_sensor_temperature` varchar(30) DEFAULT NULL,
+  `pi_temperature_factor` smallint(6) NOT NULL DEFAULT '0',
+  `def_sensor_temperature1` varchar(30) DEFAULT NULL,
+  `sensor_temperature1_factor` smallint(6) NOT NULL DEFAULT '0',
   `def_sensor_humidity` varchar(30) DEFAULT NULL,
+  `sensor_humidity_factor` smallint(6) NOT NULL DEFAULT '0',
+  `def_sensor_temperature2` varchar(30) DEFAULT NULL,
+  `sensor_temperature2_factor` smallint(6) NOT NULL DEFAULT '0',
   `def_sensor_pressure` varchar(30) DEFAULT NULL,
+  `sensor_pressure_factor` smallint(6) NOT NULL DEFAULT '0',
   `def_sensor_light` varchar(30) DEFAULT NULL,
+  `sensor_light_factor` smallint(6) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `key` (`key`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
